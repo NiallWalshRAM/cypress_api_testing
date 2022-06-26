@@ -1,4 +1,0 @@
-{
-    "baseUrl": "https://mobile-staging.qaifn.co.uk/",
-    "integrationFolder": "cypress/integration/api-tests"
-}

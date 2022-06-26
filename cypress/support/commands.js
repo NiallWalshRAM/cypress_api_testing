@@ -1,6 +1,6 @@
-Cypress.Commands.add('loginByAuth0Api', (providedUsername, providedPassword) => {
+Cypress.Commands.add('loginByAuth0Api', () => {
     Cypress.log({
-      name: 'loginViaoAuth',
+      name: 'Logging in with oAuth',
     });
 
     cy.request({
@@ -9,14 +9,15 @@ Cypress.Commands.add('loginByAuth0Api', (providedUsername, providedPassword) => 
         form: true, 
         body: { 
             "grant_type": "password",
-            "username": providedUsername, 
-            "password": providedPassword 
+            "username": Cypress.env('username'), 
+            "password": Cypress.env('password') 
         },
         auth: {
             username: Cypress.env('client_id'),
             password: Cypress.env('client_secret')
         }
       }).then(response => {
-        window.localStorage.setItem('oauth_response', JSON.stringify(response))
+        window.localStorage.setItem('access_token', response.body.access_token)
+        return response;
     });
 });
